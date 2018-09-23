@@ -25,7 +25,7 @@ class PT_BR():
     _ = ["            "]
     LABEL_INPUT_ROW = "Digite a linha (1, 2 ou 3): "
     LABEL_INPUT_COL = "Digite a coluna (1, 2 ou 3): " 
-    GAME_OVER = "Fim de jogo!\nDeu velha!"
+    GAME_OVER = "Fim de jogo! Deu velha!"
     INVALID_POSITION = "Posição inválida"
     OVERWRITE = "Já possui uma peça aqui!"
     WINNER_X = 'Jogador X venceu!'
@@ -43,4 +43,15 @@ class PT_BR():
     SETTINGS_LANGUAGE = 'Linguagem'
     SETTINGS_RETURN = 'Voltar'
     SETTINGS_LANGUAGE_DEFAULT = 'PT-BR'
-
+    INSTRUCTIONS = ['Um jogador joga com o círculo (O) e outro com os xis (X).',
+                    'Cada  jogador, na sua vez, coloca a peça, numa lacuna que esteja vazia.',
+                    'Ganha o jogador que conquistar três símbolos alinhados verticalmente, horizontalmente ou diagonalmente.',
+                    'Quando há empate costuma-se dizer que o jogo “deu velha”.']
+    ABOUT = ['Versão do famoso Jogo da Velha, escrito em python 3, executável no terminal!',
+             '',
+             'Versão: 1.0.0',
+             'Data: 22/09/2018',
+             '',
+             'Autor: Júlio César (Kaesar)',
+             'E-mail: jccb2@cin.ufpe.br',
+             'Copyright 2018, Júlio César']

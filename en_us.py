@@ -26,7 +26,7 @@ class EN_US():
      
     LABEL_INPUT_ROW = "Input row (1, 2 or 3): "
     LABEL_INPUT_COL = "Input col (1, 2 or 3): " 
-    GAME_OVER = "Game Over!\nWe tied!"
+    GAME_OVER = "Game Over! We tied!"
     INVALID_POSITION = "Invalid position!"
     OVERWRITE = "Already have an piece here!"
     WINNER_X = 'Player X won!'
@@ -39,9 +39,21 @@ class EN_US():
     MENU_SETTINGS = 'Settings'
     MENU_ABOUT = 'About'
     MENU_EXIT = 'Exit'
-    LABEL_INPUT_MENU = 'Input option:'
+    LABEL_INPUT_MENU = 'Input option: '
     INVALID_COMMAND = 'Invalid command!'
     SETTINGS_LANGUAGE = 'Language'
     SETTINGS_RETURN = 'Return'
     SETTINGS_LANGUAGE_DEFAULT = 'EN-US'
+    INSTRUCTIONS = ['One player plays with the circle (O) and another with the cross (X).',
+                    'Each player, in turn, places the piece in a void that is empty.',
+                    'When a player conquer three symbols aligned vertically, horizontally or diagonally.',
+                    'When there is a tie, it is often said that the game "we tied".']
+    ABOUT = ['Version of the famous Hash Game, written with python 3, run in terminal.',
+             '',
+             'Version: 1.0.0',
+             'Date: 09/22/2018',
+             '',
+             'Author: Júlio César (Kaesar)',
+             'Email: jccb2@cin.ufpe.br',
+             'Copyright 2018, Júlio César']
 

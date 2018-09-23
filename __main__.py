@@ -10,12 +10,12 @@
      \ \_____\  \ \_\ \_\  \ \_\ \ \_\  \ \_____\
       \/_____/   \/_/\/_/   \/_/  \/_/   \/_____/
 
-    __license__ = "GPL"
-    __version__ = "1.0.0"
-    __status__ = "Production"
-    __author__ = "Júlio César"
-    __copyright__ = "Copyright 2018, Júlio César"
-    __email__ = jccb2@cin.ufpe.br
+    License: GPL
+    Version: 1.0.0
+    Status: Production
+    Author: Júlio César
+    Copyright: Copyright 2018, Júlio César
+    Email: jccb2@cin.ufpe.br
 """
 
 import os, shutil, time
@@ -25,15 +25,27 @@ from pt_br import PT_BR
 LANGUAGE = EN_US()
 #LANGUAGE = PT_BR()
 
-X, O, _ = LANGUAGE.X, LANGUAGE.O, LANGUAGE._     
+IMGX, IMGO, IMG_ = LANGUAGE.X, LANGUAGE.O, LANGUAGE._     
 WIDTH, HEIGHT = shutil.get_terminal_size()
-TABLE = [[' ', ' ', ' '],[' ', ' ', ' '],[' ', ' ', ' ']]
+BOARD = [[' ', ' ', ' '],[' ', ' ', ' '],[' ', ' ', ' ']]
 
-def clear():
-     os.system("cls" if os.name=='nt' else 'clear')
+def clearTerminal():
+    '''
+        Method: clearTerminal
+        Description: clears the characters in the terminal
+        Param: @void
+        Return: @void
+    '''
+    os.system("cls" if os.name=='nt' else 'clear')
 
-def validIntInput(label):
-    verticalMargin = int((WIDTH - len(_[0]) * 3)/2)
+def inputValidInt(label):
+    '''
+        Method: inputValidInt
+        Description: captures entries of valid integers
+        Param: @string
+        Return: @void
+    '''
+    verticalMargin = int((WIDTH - len(IMG_[0]) * 3)/2)
     try:
         result = int(input(' ' * verticalMargin + label))
     except (KeyboardInterrupt, SystemExit):
@@ -44,10 +56,22 @@ def validIntInput(label):
     return result
 
 def printTextCenter(text):
+    '''
+        Method: printTextCenter
+        Description: Prints received text as parameter horizontally centered
+        Param: @string
+        Return: @void
+    '''
     print(' ' * int((WIDTH - len(text))/2) + text)
 
-def header():
-    clear()
+def printHeader():
+    '''
+        Method: printHeader
+        Description: Prints header with logo horizontally centered
+        Param: @void
+        Return: @void
+    '''
+    clearTerminal()
     horizontalMargin = int((HEIGHT - 39)/2)
     verticalMargin = int((WIDTH - len(LANGUAGE.LOGO[0][0])) / 2)
     print("\n" * horizontalMargin)
@@ -57,12 +81,18 @@ def header():
         verticalMargin = int((WIDTH - len(LANGUAGE.LOGO[1][0])) / 2)
         print("\n")
 
-def body(table):
-    verticalMargin = int((WIDTH - len(_[0]) * 3)/2)
+def printBoard(board):
+    '''
+        Method: printBoard
+        Description: Prints board centered 
+        Param: @list
+        Return: @void
+    '''
+    verticalMargin = int((WIDTH - len(IMG_[0]) * 3)/2)
     result = str(" " * verticalMargin)
     jumpLine = '\n' + ' ' * verticalMargin
     verticalGrid = '|'
-    horizontalGrid = '-' * 3 * len(_[0])
+    horizontalGrid = '-' * 3 * len(IMG_[0])
 
     col = 0
     row = 0
@@ -71,12 +101,12 @@ def body(table):
             aux = 0
             while(aux < 5):
                 for add in range(3):
-                    if(table[col][row + add] == 'x'):
-                        result += X[aux] + (verticalGrid if 0 <= add < 2 else '')
-                    elif(table[col][row + add] == 'o'):
-                        result += O[aux] + (verticalGrid if 0 <= add < 2 else '')
+                    if(board[col][row + add] == 'x'):
+                        result += IMGX[aux] + (verticalGrid if 0 <= add < 2 else '')
+                    elif(board[col][row + add] == 'o'):
+                        result += IMGO[aux] + (verticalGrid if 0 <= add < 2 else '')
                     else:
-                        result += _[0] + (verticalGrid if 0 <= add < 2 else '')
+                        result += IMG_[0] + (verticalGrid if 0 <= add < 2 else '')
                 result += jumpLine if aux < 4 else ''
                 aux += 1
             result += jumpLine + (horizontalGrid if 0 <= col < 2 else '' + jumpLine)
@@ -85,24 +115,36 @@ def body(table):
         row += 1
     print(result)
 
-def check(table):
+def checkWinner(board):
+    '''
+        Method: checkWinner
+        Description: Checks if any of the players won and returns boolean equivalent
+        Param: @list
+        Return: @void
+    '''
     for aux in range(3):
-        col = (table[aux][0] == table[aux][1] == table[aux][2]) and table[aux][0] != ' '
-        row = (table[0][aux] == table[1][aux] == table[2][aux]) and table[0][aux] != ' '
-        ver = (table[0][0] == table[1][1] == table[2][2] or table[0][2] == table[1][1] == table[2][0]) and table[1][1] != ' '
+        col = (board[aux][0] == board[aux][1] == board[aux][2]) and board[aux][0] != ' '
+        row = (board[0][aux] == board[1][aux] == board[2][aux]) and board[0][aux] != ' '
+        ver = (board[0][0] == board[1][1] == board[2][2] or board[0][2] == board[1][1] == board[2][0]) and board[1][1] != ' '
         if(col or row or ver):
             return True
         else:
             return False
 
-def start():
-    TABLE = [[' ', ' ', ' '],[' ', ' ', ' '],[' ', ' ', ' ']]
+def startGame():
+    '''
+        Method: startGame
+        Description: Initialize a new game and routines involved
+        Param: @void
+        Return: @void
+    '''
+    BOARD = [[' ', ' ', ' '],[' ', ' ', ' '],[' ', ' ', ' ']]
     endgame = False
     count = 1
     message = str()
     while(count <= 10):
-        header()
-        body(TABLE)
+        printHeader()
+        printBoard(BOARD)
 
         if(count % 2 == 0):
              printTextCenter(LANGUAGE.PLAYING_X)
@@ -117,15 +159,15 @@ def start():
             menu()
         else:
             if(count < 10):
-                row = validIntInput(LANGUAGE.LABEL_INPUT_ROW) - 1
-                col = validIntInput(LANGUAGE.LABEL_INPUT_COL) - 1
+                row = inputValidInt(LANGUAGE.LABEL_INPUT_ROW) - 1
+                col = inputValidInt(LANGUAGE.LABEL_INPUT_COL) - 1
                 
-                if (row >= 0 and row < 3 and col >= 0 and col < 3):
-                    if(TABLE[row][col] == ' '):
+                if(row >= 0 and row < 3 and col >= 0 and col < 3):
+                    if(BOARD[row][col] == ' '):
                         if(count % 2 == 0):
-                            TABLE[row][col] = 'x'
+                            BOARD[row][col] = 'x'
                         else:
-                            TABLE[row][col] = 'o'
+                            BOARD[row][col] = 'o'
                         count += 1
                     else:
                         message = LANGUAGE.OVERWRITE
@@ -135,7 +177,7 @@ def start():
                 message = LANGUAGE.GAME_OVER
                 endgame = True
 
-            if(check(TABLE)):
+            if(checkWinner(BOARD)):
                 if((count - 1) % 2 == 0):
                     message = LANGUAGE.WINNER_X
                 else:
@@ -143,7 +185,13 @@ def start():
                 endgame = True
 
 def menu(message = ''):
-    header()
+    '''
+        Method: menu
+        Description: Display the main menu
+        Param: @string
+        Return: @void
+    '''
+    printHeader()
     print('\n' * 3)
     printTextCenter(' 1 - ' + LANGUAGE.MENU_GAME_START)
     print('\n' * 1)
@@ -157,10 +205,10 @@ def menu(message = ''):
     print('\n' * 3)
     printTextCenter(message)
 
-    choose = validIntInput(LANGUAGE.LABEL_INPUT_MENU)
+    choose = inputValidInt(LANGUAGE.LABEL_INPUT_MENU)
 
     if(choose == 1):
-        start()
+        startGame()
     elif(choose == 2):
         instruction()
     elif(choose == 3):
@@ -173,16 +221,24 @@ def menu(message = ''):
         menu(LANGUAGE.INVALID_COMMAND)
     
 def settings(message = ''):
+    '''
+        Method: settings
+        Description: Display the settings menu
+        Param: @string
+        Return: @void
+    '''
     global LANGUAGE
-    header()
+    printHeader()
     print('\n' * 3)
+    printTextCenter(LANGUAGE.MENU_SETTINGS.upper())
+    print('\n' * 1)
     printTextCenter('1 - ' + LANGUAGE.SETTINGS_LANGUAGE + ': ' + LANGUAGE.SETTINGS_LANGUAGE_DEFAULT)
-    print('\n' * 10)
+    print('\n' * 7)
     printTextCenter('5 - ' + LANGUAGE.SETTINGS_RETURN)
     print('\n' * 3)
     printTextCenter(message)
 
-    choose = validIntInput(LANGUAGE.LABEL_INPUT_MENU)
+    choose = inputValidInt(LANGUAGE.LABEL_INPUT_MENU)
 
     if(choose == 1):
         if(LANGUAGE.SETTINGS_LANGUAGE_DEFAULT != 'EN-US'):
@@ -196,15 +252,26 @@ def settings(message = ''):
         settings(LANGUAGE.INVALID_COMMAND)
 
 def about(message = ''):
-    header()
+    '''
+        Method: about
+        Description: Display the about menu
+        Param: @string
+        Return: @void
+    '''
+    printHeader()
     print('\n' * 3)
-    printTextCenter('ABOUT')
-    print('\n' * 10)
+    printTextCenter(LANGUAGE.MENU_ABOUT.upper())
+    print('\n' * 1)
+    count = 0
+    while count < len(LANGUAGE.ABOUT):
+        printTextCenter(LANGUAGE.ABOUT[count])
+        count += 1
+    print('\n' * 1)
     printTextCenter('5 - ' + LANGUAGE.SETTINGS_RETURN)
-    print('\n' * 3)
+    print('\n' * 2)
     printTextCenter(message)
 
-    choose = validIntInput(LANGUAGE.LABEL_INPUT_MENU)
+    choose = inputValidInt(LANGUAGE.LABEL_INPUT_MENU)
 
     if(choose == 5):
         menu()
@@ -212,21 +279,33 @@ def about(message = ''):
         about(LANGUAGE.INVALID_COMMAND)
 
 def instruction(message = ''):
-    header()
+    '''
+        Method: settings
+        Description: Display the instruction menu
+        Param: @string
+        Return: @void
+    '''
+    clearTerminal()
+    printHeader()
     print('\n' * 3)
-    printTextCenter('INSTRUCTION')
-    print('\n' * 10)
+    printTextCenter(LANGUAGE.MENU_INSTRUCTIONS.upper())
+    print('\n' * 3)
+    count = 0
+    while count < len(LANGUAGE.INSTRUCTIONS):
+        printTextCenter(LANGUAGE.INSTRUCTIONS[count])
+        count += 1
+    print('\n' * 2)
     printTextCenter('5 - ' + LANGUAGE.SETTINGS_RETURN)
     print('\n' * 3)
     printTextCenter(message)
 
-    choose = validIntInput(LANGUAGE.LABEL_INPUT_MENU)
-
+    choose = inputValidInt(LANGUAGE.LABEL_INPUT_MENU)
+    
     if(choose == 5):
         menu()
     else:
         instruction(LANGUAGE.INVALID_COMMAND)
 
+#Start method
 menu()
-#start()
 
