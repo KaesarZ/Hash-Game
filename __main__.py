@@ -124,7 +124,7 @@ def checkWinner(board):
     '''
     for aux in range(3):
         col = (board[aux][0] == board[aux][1] == board[aux][2]) and board[aux][0] != ' '
-        row = (board[0][aux] == board[1][aux] == board[2][aux]) and board[0][aux] != ' '
+        row = (board[0][aux] == board[1][aux] == board[2][aux]) and board[1][aux] != ' '
         ver = (board[0][0] == board[1][1] == board[2][2] or board[0][2] == board[1][1] == board[2][0]) and board[1][1] != ' '
         if(col or row or ver):
             return True
